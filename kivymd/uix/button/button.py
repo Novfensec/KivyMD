@@ -1021,6 +1021,22 @@ class MDButton(BaseButton, CommonElevationBehavior, RelativeLayout):
 
         super().set_properties_widget()
 
+        if self.style != "elevated":
+            if (
+                self._state == self.state_hover
+                and self.focus_behavior
+                or self._state == self.state_press
+            ):
+                self.elevation_level = 1
+                self._elevation_level = 1 if self.theme_elevation_level == "Primary" else self.elevation_level
+                self.shadow_softness = 0 if self.theme_shadow_softness == "Primary" else self.shadow_softness
+            else:
+                self.elevation_level = 0
+                self._elevation_level = 0
+                self.shadow_softness = 0
+
+            return
+
         if (
             self._state == self.state_hover
             and self.focus_behavior
